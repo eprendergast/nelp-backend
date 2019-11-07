@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2019_11_07_125016) do
   enable_extension "plpgsql"
 
   create_table "restaurants", force: :cascade do |t|
+    t.string "yelp_business_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
