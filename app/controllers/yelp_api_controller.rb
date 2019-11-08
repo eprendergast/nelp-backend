@@ -10,6 +10,9 @@ class YelpApiController < ApplicationController
         render json: restaurant
     end
 
-
+    def restaurant_reviews
+        reviews = JSON.parse(YelpApi.get_reviews(params[:business_id]))
+        render json: reviews
+    end
 
 end

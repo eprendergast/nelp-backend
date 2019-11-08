@@ -16,6 +16,10 @@ Rails.application.routes.draw do
   # RESTAURANTS API
   get '/restaurants', to: 'yelp_api#restaurants'
   get '/restaurants/:business_id', to: 'yelp_api#restaurant'
-  get '/restaurants/:id/reviews', to: 'yelp_api#restaurant_reviews'
+  get '/restaurants/:business_id/reviews', to: 'yelp_api#restaurant_reviews'
+
+  # SAVED RESTAURANTS
+  get '/users/:id/saved_restaurants', to: 'users#saved_restaurants'
+
 
 end

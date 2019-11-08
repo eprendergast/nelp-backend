@@ -9,7 +9,7 @@ class YelpApi < ApplicationRecord
     end
 
     def self.generate_reviews_url(business_id)
-        "#{YelpApi.generateBusinessUrl(business_id)}/reviews"
+        "#{YelpApi.generate_business_url(business_id)}/reviews"
     end
 
     def self.get_restaurants(location = "london", category = "all")
@@ -32,6 +32,17 @@ class YelpApi < ApplicationRecord
         business_url = generate_business_url(business_id)
         return Unirest.get( 
             business_url, 
+            headers: {
+                "Accept" => "application/json",
+                "Authorization" => "Bearer #{API_KEY}"
+            }
+        ).raw_body
+    end
+
+    def self.get_reviews(business_id)
+        reviews_url = generate_reviews_url(business_id)
+        return Unirest.get( 
+            reviews_url, 
             headers: {
                 "Accept" => "application/json",
                 "Authorization" => "Bearer #{API_KEY}"
