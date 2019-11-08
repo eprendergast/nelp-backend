@@ -2,6 +2,7 @@ class YelpApiController < ApplicationController
 
     def restaurants
         restaurants = YelpApi.get_restaurants 
+        byebug
         render json: restaurants
     end
 

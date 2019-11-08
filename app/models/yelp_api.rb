@@ -6,10 +6,6 @@ class YelpApi < ApplicationRecord
     API_ENDPOINT = "https://api.yelp.com/v3"
     SEARCH_URL = "#{API_ENDPOINT}/businesses/search"
 
-    def get_business_id(id)
-
-    end
-
     def self.generate_business_url(business_id)
         "#{API_ENDPOINT}/businesses/#{business_id}"
     end
@@ -29,7 +25,7 @@ class YelpApi < ApplicationRecord
                 :location => location,
                 :term => "restaurants",
                 :categories => category,
-                :limit => 50
+                :limit => 10 #can be up to 50; setting to 10 for development
             }
         ).raw_body
     end
