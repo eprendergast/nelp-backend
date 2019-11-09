@@ -13,6 +13,7 @@ class YelpApi < ApplicationRecord
     end
 
     def self.get_restaurants(location = "london", category = "all")
+        
         return Unirest.get( 
             SEARCH_URL, 
             headers: {

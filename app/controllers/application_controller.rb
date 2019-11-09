@@ -18,7 +18,7 @@ class ApplicationController < ActionController::API
     end
 
     def secret 
-        "elaami" # set as environment variable on production
+       ENV["SECRET"] # set as environment variable on production
     end
     
     def issue_token(id)

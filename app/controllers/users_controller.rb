@@ -6,14 +6,10 @@ class UsersController < ApplicationController
         saved_restaurant_business_ids = saved_restaurants.map{ |restaurant| restaurant.yelp_business_id }
 
         saved_restaurant_data = saved_restaurant_business_ids.map{ |business_id| JSON.parse(YelpApi.get_restaurant(business_id)) }
-        byebug
         render json: {restaurants: saved_restaurant_data}
 
     end
 
-    private def get_users_saved_restaurants(id)
-        UserRestaurant.all.select{ |user_restaurant| user_restaurant.user_id == params[:id].to_i }.map{ |user_restaurant| user_restaurant.restaurant }
-    end
 
     # ACCOUNT CRUD
 
@@ -66,5 +62,10 @@ class UsersController < ApplicationController
         end
     end
 
+    private 
+    
+    def get_users_saved_restaurants(id)
+        UserRestaurant.all.select{ |user_restaurant| user_restaurant.user_id == params[:id].to_i }.map{ |user_restaurant| user_restaurant.restaurant }
+    end
 
 end
