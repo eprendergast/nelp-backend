@@ -4,7 +4,7 @@ class YelpApi < ApplicationRecord
     SEARCH_URL = "#{API_ENDPOINT}/businesses/search"
 
     def self.get_restaurants(location = "london", category = "all")
-        return Unirest.get( 
+        api_response = Unirest.get( 
             SEARCH_URL, 
             headers: {
                 "Accept" => "application/json",
@@ -16,7 +16,25 @@ class YelpApi < ApplicationRecord
                 :categories => category,
                 :limit => 10 #can be up to 50; setting to 10 for development
             }
-        ).raw_body
+        )
+        return JSON.parse(api_response.raw_body)["businesses"]
+    end
+
+    def self.get_review_data(restaurant_data)
+        return restaurant_data.map{ |restaurant| restaurant.merge("reviews": JSON.parse(YelpApi.get_reviews(restaurant["id"]))["reviews"]) }
+    end
+
+    def self.add_sentiment_score(restaurant_data_with_reviews)
+        analyzer = Sentimental.new
+        analyzer.load_defaults
+        analyzer.threshold = 0.0
+
+        return restaurant_data_with_reviews.map do |restaurant|
+            restaurant.merge(
+                "reviews": restaurant[:reviews].map{ |review| review.merge("sentiment_score": (analyzer.score review["text"])) }
+            )
+        end
+
     end
 
     def self.get_restaurant(business_id)
