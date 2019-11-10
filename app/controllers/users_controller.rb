@@ -2,13 +2,9 @@ class UsersController < ApplicationController
 
     def saved_restaurants
         user = User.find(params[:id])
-        saved_restaurants = get_users_saved_restaurants(params[:id])
-        saved_restaurant_business_ids = saved_restaurants.map{ |restaurant| restaurant.yelp_business_id }
-
-        saved_restaurant_data = saved_restaurant_business_ids.map{ |business_id| JSON.parse(YelpApi.get_restaurant(business_id)) }
-        render json: {restaurants: saved_restaurant_data}
-
-    end
+        restaurant_data = user.restaurants.map{ |restaurant| JSON.parse(YelpApi.get_restaurant(restaurant.yelp_business_id)) }
+        render json: {saved_restaurants: restaurant_data}
+    end 
 
 
     # ACCOUNT CRUD
@@ -60,12 +56,6 @@ class UsersController < ApplicationController
         else
           render json: { error:  'Unable to validate user.' }, status: 401
         end
-    end
-
-    private 
-    
-    def get_users_saved_restaurants(id)
-        UserRestaurant.all.select{ |user_restaurant| user_restaurant.user_id == params[:id].to_i }.map{ |user_restaurant| user_restaurant.restaurant }
     end
 
 end
