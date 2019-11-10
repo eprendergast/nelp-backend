@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   patch '/users/:id', to: 'users#update' #TODO 
   delete '/users/:id', to: 'users#destroy' #TODO
 
-  post '/signin', to: 'users#signin' #TODO 
+  post '/signin', to: 'users#signin'
   get '/validate', to: 'users#validate' #TODO
 
 
@@ -23,4 +23,3 @@ Rails.application.routes.draw do
 
 
 end
-  
