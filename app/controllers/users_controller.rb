@@ -21,7 +21,6 @@ class UsersController < ApplicationController
 
     def create
         user = User.new(JSON.parse(params["body"]))
-        debugger
         if user.valid? 
             user.save
             token = issue_token(id: user.id)
