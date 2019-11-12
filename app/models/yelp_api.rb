@@ -11,8 +11,8 @@ class YelpApi < ApplicationRecord
                 "Authorization" => "Bearer #{ENV["API_KEY"]}"
             },
             parameters: {
-                :location => location,
-                :categories => category,
+                :location => location.downcase,
+                :categories => category.downcase,
                 :term => "restaurants",
                 :limit => 10 #can be up to 50; setting to 10 for development
             }
