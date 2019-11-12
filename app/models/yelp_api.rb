@@ -12,7 +12,7 @@ class YelpApi < ApplicationRecord
             },
             parameters: {
                 :location => location,
-                :category => category,
+                :categories => category,
                 :term => "restaurants",
                 :limit => 10 #can be up to 50; setting to 10 for development
             }
