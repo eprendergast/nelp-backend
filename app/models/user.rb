@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-    
+    include User::Validations
+   
     has_secure_password
     
     has_many :user_restaurants
