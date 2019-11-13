@@ -2,10 +2,10 @@ class UsersController < ApplicationController
 
     def saved_restaurants
         user = User.find(params[:id])
-        restaurant_data = user.restaurants.map{ |restaurant| JSON.parse(YelpApi.get_restaurant(restaurant.yelp_business_id)) }
-        render json: {saved_restaurants: restaurant_data}
+        restaurant_business_ids = user.restaurants.map{ |restaurant| restaurant.yelp_business_id }
+        saved_restaurants = restaurant_business_ids.map{ |id| YelpApi.get_restaurant(id) }
+        render json: {saved_restaurants: saved_restaurants}
     end 
-
 
     # ACCOUNT CRUD
 

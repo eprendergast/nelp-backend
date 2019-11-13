@@ -1,10 +1,15 @@
 class YelpApiController < ApplicationController
 
     def restaurants
+        if !params[:location]
+            params[:location] = "london"
+        end
+        if !params[:category]
+            params[:category] = "all"
+        end
         restaurant_data = YelpApi.get_restaurants(params[:location], params[:category])
         restaurant_data_with_reviews = YelpApi.get_review_data(restaurant_data)
-        restaurant_data_with_sentiment_score = SentimentAnalyser.add_sentiment_score(restaurant_data_with_reviews)
-        render json: restaurant_data_with_sentiment_score.to_json
+        render json: restaurant_data_with_reviews.to_json
     end
 
     def restaurant 
