@@ -3,7 +3,7 @@ class YelpApi < ApplicationRecord
     API_ENDPOINT = "https://api.yelp.com/v3"
     SEARCH_URL = "#{API_ENDPOINT}/businesses/search"
 
-    def self.get_restaurants(location = "london", category ="all")
+    def self.get_restaurants(location, category)
         api_response = Unirest.get( 
             SEARCH_URL, 
             headers: {

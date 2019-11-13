@@ -10,8 +10,7 @@ Rails.application.routes.draw do
   delete '/users/:id', to: 'users#destroy' #TODO
 
   post '/signin', to: 'users#signin'
-  get '/validate', to: 'users#validate' #TODO
-
+  get '/validate', to: 'users#validate'
 
   # RESTAURANTS API
   get '/restaurants', to: 'yelp_api#restaurants'

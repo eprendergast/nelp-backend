@@ -6,8 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.delete_all
 UserRestaurant.delete_all
+User.delete_all
 Restaurant.delete_all
 
 u1 = User.create(first_name: "Joe", last_name: "Bloggs", email: "jbloggs@gmail.com", password: "1")
@@ -19,9 +19,9 @@ r3 = Restaurant.create(yelp_business_id: "zJNI06Y2zZQFh9OBSFCdgQ")
 r4 = Restaurant.create(yelp_business_id: "0B-ag3J18TatG9H9EQohGg")
 r5 = Restaurant.create(yelp_business_id: "IBV7BsXnv2gX68nWUARhjw")
 
-UserRestaurant.create(user_id: 1, restaurant_id: 1)
-UserRestaurant.create(user_id: 1, restaurant_id: 2)
-UserRestaurant.create(user_id: 1, restaurant_id: 3)
-UserRestaurant.create(user_id: 2, restaurant_id: 1)
-UserRestaurant.create(user_id: 2, restaurant_id: 4)
-UserRestaurant.create(user_id: 2, restaurant_id: 5)
+UserRestaurant.create(user_id: User.all.first.id, restaurant_id: r1.id)
+UserRestaurant.create(user_id: User.all.first.id, restaurant_id: r2.id)
+UserRestaurant.create(user_id: User.all.first.id, restaurant_id: r3.id)
+UserRestaurant.create(user_id: User.all.second.id, restaurant_id: r3.id)
+UserRestaurant.create(user_id: User.all.second.id, restaurant_id: r4.id)
+UserRestaurant.create(user_id: User.all.second.id, restaurant_id: r5.id)
