@@ -19,6 +19,6 @@ Rails.application.routes.draw do
 
   # SAVED RESTAURANTS
   get '/users/:id/saved_restaurants', to: 'users#saved_restaurants'
-
+  post '/saved_restaurants', to: 'users#add_saved_restaurant'
 
 end
