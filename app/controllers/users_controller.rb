@@ -11,11 +11,9 @@ class UsersController < ApplicationController
         user_id = (JWT.decode(params[:parameters]["token"], ENV["SECRET"]).first)["id"]
         yelp_business_id = params[:parameters]["restaurant_id"]
         if restaurant = Restaurant.find_by(yelp_business_id: yelp_business_id)
-            debugger
             create_user_restaurant(user_id, restaurant.id)
         else 
             restaurant = Restaurant.create(yelp_business_id: yelp_business_id)
-            debugger
             create_user_restaurant(user_id, restaurant.id)
         end
     end
@@ -71,7 +69,7 @@ class UsersController < ApplicationController
         user = User.find_by(email: params[:email])
         if user && user.authenticate(params[:password])
             token = issue_token({id: user.id})
-            render json: { first_name: user.first_name, token: token }
+            render json: { id: user.id, first_name: user.first_name, token: token }
         else
             render json: { error:  'Email and password combination is invalid.' }, status: 401
         end
@@ -80,7 +78,7 @@ class UsersController < ApplicationController
     def validate
         user = get_current_user
         if user
-          render json: { first_name: user.first_name, token: issue_token({ id: user.id }) }
+          render json: { id: user.id, first_name: user.first_name, token: issue_token({ id: user.id }) }
         else
           render json: { error:  'Unable to validate user.' }, status: 401
         end
